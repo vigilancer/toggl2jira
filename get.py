@@ -38,6 +38,11 @@ def parse_input_date():
 
 
 def main():
+    if not (USER_ANENT and WORKSPACE_ID):
+        print("E: USER_AGENT or WORKSPACE_ID is empty")
+        print("E: do `source ./env.sh`")
+        exit(1)
+
     since = parse_input_date()
     if not since:
         since = date.today()
