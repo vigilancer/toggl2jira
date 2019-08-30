@@ -5,6 +5,7 @@
 # https://github.com/toggl/toggl_api_docs/blob/master/reports.md
 #
 
+import argparse
 import os
 import requests
 from datetime import date, timedelta
@@ -16,15 +17,37 @@ USER_ANENT="@ae toggl2jira script"
 WORKSPACE_ID=os.getenv("TOGGL_SCRIPT_WORKSPACE_ID")
 
 
-def main():
-    since = date.today().strftime("%Y-%m-%d")
-    until = (date.today() + timedelta(days=1)).strftime("%Y-%m-%d")
+def parse_input_date():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+            'date',
+            metavar='DATE',
+            type=str,
+            nargs='?',
+            help='date for which to download report from toggl'
+    )
+    args = parser.parse_args()
+    if not args.date:
+        return None
 
-    payload={
+    try:
+        return date.fromisoformat(args.date)
+    except ValueError:
+        print(f"invalid date: {args.date}")
+        exit(1)
+
+
+def main():
+    since = parse_input_date()
+    if not since:
+        since = date.today()
+    until = since + timedelta(days=1)
+
+    payload = {
         'user_agent': USER_ANENT,
         'workspace_id': WORKSPACE_ID,
-        'since': since,
-        'until': until
+        'since': since.strftime("%Y-%m-%d"),
+        'until': until.strftime("%Y-%m-%d")
     }
 
     r = requests.get(URL, auth=(TOKEN, "api_token"), params=payload)
