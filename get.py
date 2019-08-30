@@ -12,9 +12,9 @@ from datetime import date, timedelta
 
 
 URL="https://toggl.com/reports/api/v2/details"
-TOKEN=os.getenv("TOGGL_SCRIPT_TOKEN")
+TOKEN=os.getenv("_TOGGL_TOKEN")
 USER_ANENT="@ae toggl2jira script"
-WORKSPACE_ID=os.getenv("TOGGL_SCRIPT_WORKSPACE_ID")
+WORKSPACE_ID=os.getenv("_TOGGL_WORKSPACE_ID")
 
 
 def parse_input_date():
