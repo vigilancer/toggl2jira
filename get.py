@@ -33,7 +33,7 @@ def parse_input_date():
     try:
         return date.fromisoformat(args.date)
     except ValueError:
-        print(f"invalid date: {args.date}")
+        print(f"E: invalid date: {args.date}")
         exit(1)
 
 
@@ -53,7 +53,7 @@ def main():
     r = requests.get(URL, auth=(TOKEN, "api_token"), params=payload)
 
     if (r.status_code != 200):
-        print(r.content)
+        print(f"E: {r.content}")
         exit(r.status_code)
 
     print(r.json()['data'])
