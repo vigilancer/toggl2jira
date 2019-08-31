@@ -4,7 +4,7 @@
 [x] download report from Toggl for specific date
 [] ~store downloaded report into temp file~
 [x] pipe data from `get.py` to `post.py`
-[] upload report into Jira
+[x] upload report into Jira
 [] simple wrapper to process range of dates
 
 [] switch to pipenv
