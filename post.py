@@ -137,12 +137,12 @@ def main():
     if piped:
         parser = argparse.ArgumentParser()
         parser.add_argument("-n", "--dry-run", action="store_true", default=False,
-                help="when specified data will not be actually posted")
+                help="when true specified data will not be actually posted")
         args = parser.parse_args()
 
         _process(sys.stdin.read(), args.dry_run)
     else:
-        print("E: only data from stdin supported")
+        print("E: only data from stdin is supported")
         exit(1)
 
 
