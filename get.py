@@ -4,6 +4,9 @@
 # toggl report api
 # https://github.com/toggl/toggl_api_docs/blob/master/reports.md
 #
+# Seems Toggl returns dates with timezone your device was using
+# and not timezone that is set in Toggl's profile settings
+#
 
 import argparse
 import os
@@ -61,7 +64,16 @@ def main():
         print(f"E: {r.content}")
         exit(r.status_code)
 
-    print(r.json()['data'])
+    data = map(
+            lambda x: {
+                "start": x['start'],
+                'duration': x['dur'] // 1000,  # ms to sec
+                'description': x['description']
+            },
+            r.json()['data']
+    )
+
+    print(list(data))
 
 
 if __name__ == "__main__":
