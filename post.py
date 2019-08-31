@@ -24,8 +24,6 @@ import os
 from datetime import datetime
 import argparse
 
-from jira import JIRA
-
 BASE_URL=os.getenv('_JIRA_URL')
 
 WORKLOG_ENDPOINT="/rest/api/2/issue/{issueIdOrKey}/worklog"
