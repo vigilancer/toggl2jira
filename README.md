@@ -42,7 +42,7 @@ or
 
 #### dry-run
 
-just add `-n` to skip actual `post`.
+just add `-n` to skip actual `post`ing to JIRA (useful to see logs before actually updating JIRA).
 
 ```sh
 ./get.py '2019-08-30' | ./post.py -n
