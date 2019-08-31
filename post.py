@@ -46,7 +46,7 @@ def _parse_issue_desctiption(description: str):
         <ISSUE_ID>
         comment -> COM: comment
 
-        colon sign (:) is optional an will be ignored
+        colon sign (:) is optional and will be ignored
     """
 
     if description.startswith('COM:'):
