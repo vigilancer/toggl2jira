@@ -49,7 +49,7 @@ def main():
     since = parse_input_date()
     if not since:
         since = date.today()
-    until = since + timedelta(days=1)
+    until = since
 
     payload = {
         'user_agent': USER_ANENT,
