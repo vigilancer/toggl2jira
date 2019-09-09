@@ -18,12 +18,15 @@ worklog without recognized prefix (that is `[A-Z]+-[0-9]+` or `COD:` or `COM:`) 
 
 #### setup
 
+first,
 ```sh
 cp ./env.sh.example ./env.sh
 ```
 
+second,
 edit `./env.sh`
 
+and third,
 ```sh
 source ./env.sh
 ```
