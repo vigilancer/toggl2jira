@@ -35,6 +35,8 @@ PASSWORD=os.getenv('_JIRA_PASSWORD')
 ISSUE_COMMON=os.getenv('_JIRA_ISSUE_COMMON')
 ISSUE_CODE=os.getenv('_JIRA_ISSUE_CODE')
 
+DRY_RUN = False
+
 
 def _parse_issue_desctiption(description: str):
     """
@@ -77,15 +79,15 @@ def _parse_issue_desctiption(description: str):
     return (issue, comment)
 
 
-def _process(worklog: str, dry_run: bool):
+def _process(worklog: str):
     # XXX validate data
 
     # that's how we parse "malformed" json (with single quotes)
     for entry in ast.literal_eval(worklog):
-        _process_entry(entry, dry_run)
+        _process_entry(entry)
 
 
-def _process_entry(entry: dict, dry_run: bool):
+def _process_entry(entry: dict):
 
     with requests.Session() as session:
         url = "{}{}".format(BASE_URL, SESSION_ENDPOINT)
@@ -119,7 +121,7 @@ def _process_entry(entry: dict, dry_run: bool):
 
         print(f'I: post {issue} {data}')
 
-        if not dry_run:
+        if not DRY_RUN:
             r = session.post(url, json = data)
             if (r.status_code != 201):
                 print("E: can't add worklog")
@@ -139,8 +141,10 @@ def main():
         parser.add_argument("-n", "--dry-run", action="store_true", default=False,
                 help="when true specified data will not be actually posted")
         args = parser.parse_args()
+        global DRY_RUN
+        DRY_RUN = args.dry_run
 
-        _process(sys.stdin.read(), args.dry_run)
+        _process(sys.stdin.read())
     else:
         print("E: only data from stdin is supported")
         exit(1)
