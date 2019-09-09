@@ -60,12 +60,14 @@ def _parse_issue_desctiption(description: str):
         if issue_match:
             # specific issue
             issue = issue_match[0]
-            comment_match=re.search('(?<=issue)\:?(.+)', description)
-            if comment_match:
-                # ... with comment
-                comment=comment_match[1]
+            if description.startswith(f"{issue} "):
+                # find comment after first whitespace
+                comment = description.split(" ", 1)[1]
+            elif description.startswith(f"{issue}:"):
+                # ... or after first semicolon
+                comment = description.split(":", 1)[1]
             else:
-                # ... without comment
+                # ... or use empty comment
                 comment=''
         else:
             # otherwise whole description is a comment to COMMON issue
