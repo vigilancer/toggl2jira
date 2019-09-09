@@ -27,7 +27,7 @@ def parse_input_date():
             metavar='DATE',
             type=str,
             nargs='?',
-            help='date for which to download report from toggl'
+            help='date for which to download report from toggl (e.g. 2019-08-30)'
     )
     args = parser.parse_args()
     if not args.date:
