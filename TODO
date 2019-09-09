@@ -6,5 +6,6 @@
 [x] pipe data from `get.py` to `post.py`
 [x] upload report into Jira
 [] simple wrapper to process range of dates
+[] add delete.py <DATE> script to cleanup fuckups after post.py
 
 [] switch to pipenv
